@@ -44,17 +44,17 @@ class MeetingsRelationManager extends RelationManager
                 //
             ])
             ->headerActions([
-                CreateAction::make(),
-                AssociateAction::make(),
+                // CreateAction::make(),
+                // AssociateAction::make(),
             ])
             ->recordActions([
                 EditAction::make(),
-                DissociateAction::make(),
+                // DissociateAction::make(),
                 DeleteAction::make(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
-                    DissociateBulkAction::make(),
+                    // DissociateBulkAction::make(),
                     DeleteBulkAction::make(),
                 ]),
             ]);
