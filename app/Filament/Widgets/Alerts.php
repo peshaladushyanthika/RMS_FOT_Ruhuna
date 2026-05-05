@@ -16,10 +16,46 @@ class Alerts extends TableWidget
     public function table(Table $table): Table
     {
         return $table
-            ->query(fn (): Builder => Group::query()
-                    ->with(['submissions', 'meetings'])
-                    ->limit(10)
-            )
+            ->query(function (): Builder {
+    return Group::query()
+        ->with(['submissions', 'meetings'])
+        ->where(function ($query) {
+            $query
+                // No meetings
+                ->whereDoesntHave('meetings')
+
+                // Proposal rejected
+                ->orWhereHas('submissions', function ($q) {
+                    $q->where('type', 'proposal')
+                      ->where('status', 'rejected');
+                })
+
+                // Presentation rejected
+                ->orWhereHas('submissions', function ($q) {
+                    $q->where('type', 'p_Pres')
+                      ->where('status', 'rejected');
+                })
+
+                // Thesis pending
+                ->orWhereHas('submissions', function ($q) {
+                    $q->where('type', 'thesis')
+                      ->where('status', 'pending');
+                })
+
+                // Viva pending
+                ->orWhereHas('submissions', function ($q) {
+                    $q->where('type', 'viva')
+                      ->where('status', 'pending');
+                })
+
+                // Progress pending
+                ->orWhereHas('submissions', function ($q) {
+                    $q->where('type', 'progress1')
+                      ->where('status', 'pending');
+                });
+        })
+        ->limit(10);
+})
             ->columns([
                 TextColumn::make('id')
                     ->label('Group'),
