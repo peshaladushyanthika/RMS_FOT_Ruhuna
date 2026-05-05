@@ -53,7 +53,7 @@
             Select Your Login Portal
           </p>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6 max-w-4xl mx-auto">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 max-w-5xl mx-auto">
 
             <!-- Admin Portal -->
             <a
@@ -69,6 +69,21 @@
                 submissions, reports and final year project records.
               </p>
             </a>
+
+            <!-- Supervisor Portal -->
+<a
+  href="{{ url('/supervisor') }}"
+  class="rounded-xl md:rounded-2xl bg-purple-600 hover:bg-purple-700 transition duration-300 p-6 md:p-8 text-white shadow-lg"
+>
+  <h3 class="text-xl md:text-2xl font-bold mb-3">
+    Supervisor Panel
+  </h3>
+
+  <p class="text-sm md:text-base opacity-95 leading-relaxed">
+    Monitor assigned student groups, review submissions,
+    provide feedback, and manage research progress effectively.
+  </p>
+</a>
 
             <!-- Student Portal -->
             <a

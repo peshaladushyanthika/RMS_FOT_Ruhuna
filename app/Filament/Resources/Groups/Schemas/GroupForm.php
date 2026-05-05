@@ -6,6 +6,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
 use Filament\Schemas\Schema;
 use App\Models\Group;
+use App\Models\Supervisor;
 
 class GroupForm
 {
@@ -39,13 +40,22 @@ class GroupForm
                     }),
                 Select::make('supervisor_id')
                     ->label('Main Supervisor')
-                    ->relationship('supervisor', 'name')
+                    ->options(
+                        Supervisor::with('user')
+                        ->get()
+                        ->pluck('user.name', 'id')
+                    )
                     ->searchable()
                     ->preload()
                     ->required(),
                 Select::make('co_supervisor_id')
                     ->label('Co-Supervisor')
-                    ->relationship('coSupervisor', 'name') // 👈 KEY
+                    // ->relationship('coSupervisor', 'name')
+                    ->options(
+                        Supervisor::with('user')
+                        ->get()
+                        ->pluck('user.name', 'id')
+                    )
                     ->searchable()
                     ->preload()
                     ->nullable()

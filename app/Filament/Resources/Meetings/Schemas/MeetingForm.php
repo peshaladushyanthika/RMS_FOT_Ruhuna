@@ -7,6 +7,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Schemas\Schema;
+use App\Models\Supervisor;
 
 class MeetingForm
 {
@@ -19,7 +20,12 @@ class MeetingForm
                     ->numeric(),
                 Select::make('supervisor_id')
                     ->label('Supervisor')
-                    ->relationship('supervisor', 'name')
+                    ->options(
+                        Supervisor::with('user')
+                        ->get()
+                        ->pluck('user.name', 'id')
+                    )
+                    // ->relationship('supervisor', 'name')
                     ->searchable()
                     ->preload()
                     ->required(),

@@ -35,8 +35,10 @@ class StudentsRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('name')
             ->columns([
-                TextColumn::make('name'),
-                TextColumn::make('email'),
+                TextColumn::make('user.name')
+                ->label('Name'),
+                TextColumn::make('user.email')
+                ->label('Email Address'),
             ])
             ->filters([
                 //

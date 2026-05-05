@@ -20,7 +20,7 @@ class StudentResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
-    protected static ?string $recordTitleAttribute = 'student_name';
+    protected static ?string $recordTitleAttribute = 'user.name';
 
     public static function form(Schema $schema): Schema
     {
@@ -47,4 +47,9 @@ class StudentResource extends Resource
             'edit' => EditStudent::route('/{record}/edit'),
         ];
     }
+
+    public static function canAccess(): bool
+{
+    return auth()->user()?->role === 'admin';
+}
 }

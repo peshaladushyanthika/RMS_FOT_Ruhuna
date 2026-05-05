@@ -47,4 +47,9 @@ class SupervisorResource extends Resource
             'edit' => EditSupervisor::route('/{record}/edit'),
         ];
     }
+
+    public static function canAccess(): bool
+{
+    return auth()->user()?->role === 'admin';
+}
 }

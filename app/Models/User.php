@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-#[Fillable(['name', 'email', 'password'])]
+#[Fillable(['name', 'role', 'email', 'password'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
@@ -29,4 +29,23 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function student()
+{
+    return $this->hasOne(Student::class);
+}
+
+public function supervisor()
+{
+    return $this->hasOne(Supervisor::class);
+}
+
+public function canAccessPanel(\Filament\Panel $panel): bool
+{
+    return match ($panel->getId()) {
+        'admin' => $this->role === 'admin',
+        'supervisor' => $this->role === 'supervisor',
+        default => false,
+    };
+}
 }

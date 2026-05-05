@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Students\Tables;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Actions\DeleteAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Filament\Actions\Action;
@@ -21,9 +22,10 @@ class StudentsTable
                 TextColumn::make('stu_number')
                     ->label('Student No')
                     ->searchable(),
-                TextColumn::make('name')
+                TextColumn::make('user.name')
+                    ->label('Student Name')
                     ->searchable(),
-                TextColumn::make('email')
+                TextColumn::make('user.email')
                     ->label('Email address'),
                 TextColumn::make('group_id')
                     ->numeric()
@@ -42,6 +44,7 @@ class StudentsTable
             ])
             ->recordActions([
                 EditAction::make(),
+                DeleteAction::make(),
             ])
             ->headerActions([
                 Action::make('importStudents')

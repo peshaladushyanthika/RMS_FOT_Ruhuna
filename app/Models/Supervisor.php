@@ -8,9 +8,15 @@ class Supervisor extends Model
 {
 
 protected $fillable = [
-        'name',
-        'email',
+        'user_id',
+        // 'name',
+        // 'email',
     ]; 
+
+    public function user()
+{
+    return $this->belongsTo(User::class);
+}
 
     public function mainGroups()
 {

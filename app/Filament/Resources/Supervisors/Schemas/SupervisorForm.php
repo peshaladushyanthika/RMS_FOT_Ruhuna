@@ -12,9 +12,12 @@ class SupervisorForm
         return $schema
             ->components([
                 TextInput::make('name')
+                    ->label('Supervisor Name')
+                    ->formatStateUsing(fn ($record) => $record?->user?->name) 
                     ->required(),
                 TextInput::make('email')
                     ->label('Email address')
+                    ->formatStateUsing(fn ($record) => $record?->user?->email)
                     ->email()
                     ->required(),
             ]);

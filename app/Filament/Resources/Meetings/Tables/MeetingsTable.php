@@ -17,7 +17,8 @@ class MeetingsTable
                 TextColumn::make('group_id')
                     ->numeric()
                     ->sortable(),
-                TextColumn::make('supervisor.name'),
+                TextColumn::make('supervisor.user.name')
+                    ->label('Supervisor Name'),
                 TextColumn::make('meeting_date')
                     ->dateTime()
                     ->sortable(),

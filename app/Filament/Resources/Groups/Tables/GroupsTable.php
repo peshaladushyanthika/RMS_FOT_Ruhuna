@@ -24,9 +24,9 @@ class GroupsTable
                     ->url(fn ($record) => route('filament.admin.resources.groups.view' , $record))
                     ->openUrlInNewTab(false),
                 TextColumn::make('research_title'),
-                TextColumn::make('supervisor.name')
+                TextColumn::make('supervisor.user.name')
                     ->label('Main Supervisor'),
-                TextColumn::make('coSupervisor.name')
+                TextColumn::make('coSupervisor.user.name')
                     ->label('Co-Supervisor'),
                 TextColumn::make('created_at')
                     ->dateTime()
