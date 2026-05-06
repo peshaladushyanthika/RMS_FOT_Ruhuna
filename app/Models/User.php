@@ -42,9 +42,11 @@ public function supervisor()
 
 public function canAccessPanel(\Filament\Panel $panel): bool
 {
+    dd($panel->getId(), $this->role);
     return match ($panel->getId()) {
         'admin' => $this->role === 'admin',
         'supervisor' => $this->role === 'supervisor',
+        'student' => $this->role === 'student',
         default => false,
     };
 }

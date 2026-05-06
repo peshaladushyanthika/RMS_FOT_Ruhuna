@@ -25,5 +25,9 @@ protected $fillable = [
     {
         return $this->belongsTo(Supervisor::class);
     }
+    public function user()
+{
+    return $this->belongsTo(User::class);
+}
 
 }

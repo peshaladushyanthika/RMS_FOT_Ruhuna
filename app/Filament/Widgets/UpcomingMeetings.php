@@ -29,7 +29,7 @@ class UpcomingMeetings extends TableWidget
                     ->label('Date'),
                 // TextColumn::make('group.research_title')
                 //     ->label('Research Title'),
-                TextColumn::make('supervisor.name')
+                TextColumn::make('supervisor.user.name')
                     ->label('Supervisor'),
             ])
             ->filters([
