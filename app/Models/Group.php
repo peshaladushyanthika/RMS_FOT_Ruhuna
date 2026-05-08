@@ -38,4 +38,12 @@ public function meetings()
 {
     return $this->hasMany(Meeting::class);
 }
+
+public function submissionSchedules()
+{
+    return $this->belongsToMany(
+        SubmissionSchedule::class,
+        'submission_schedule_groups'
+    );
+}
 }

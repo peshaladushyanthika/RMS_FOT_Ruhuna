@@ -8,10 +8,12 @@ class Submission extends Model
 {
 
 protected $fillable = [
+        'submission_schedule_id',
         'group_id', 
         'type',
         'version',
         'file_path',
+        'reviewed_file',
         'marks',
         'status',
         'feedback',
@@ -22,4 +24,9 @@ protected $fillable = [
 {
     return $this->belongsTo(Group::class);
 }
+
+    public function schedule()
+    {
+        return $this->belongsTo(SubmissionSchedule::class, 'submission_schedule_id');
+    }
 }
