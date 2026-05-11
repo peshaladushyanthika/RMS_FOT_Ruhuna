@@ -33,10 +33,20 @@ class StudentPendingSubmissions extends TableWidget
                                 $q->where('groups.id', $groupId);
                             });
                     })
+            ->whereDoesntHave('submissions', function ($q) use ($groupId) {
+            $q->where('group_id', $groupId);
+        })
                     )
             ->columns([
                 TextColumn::make('title')
-                    ->label('Submission'),
+                    ->label('Submission')
+                    ->url(fn ($record) =>
+                        route('filament.student.pages.submission-details', [
+                            'schedule' => $record->id
+                        ])
+                    )
+                    ->color('primary')
+                    ->weight('bold'),
                 TextColumn::make('type')
                     ->badge(),
                 

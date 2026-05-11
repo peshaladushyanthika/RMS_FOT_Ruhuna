@@ -10,7 +10,7 @@ class Submission extends Model
 protected $fillable = [
         'submission_schedule_id',
         'group_id', 
-        'type',
+        // 'type',
         'version',
         'file_path',
         'reviewed_file',
@@ -29,4 +29,12 @@ protected $fillable = [
     {
         return $this->belongsTo(SubmissionSchedule::class, 'submission_schedule_id');
     }
+
+    public function scopeForSupervisor($query, $userId)
+{
+    return $query->whereHas('group', function ($q) use ($userId) {
+        $q->where('supervisor_id', $userId)
+          ->orWhere('co_supervisor_id', $userId);
+    });
+}
 }

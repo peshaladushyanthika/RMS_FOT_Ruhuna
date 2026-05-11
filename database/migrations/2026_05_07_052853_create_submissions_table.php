@@ -13,14 +13,18 @@ return new class extends Migration
     {
         Schema::create('submissions', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('submission_schedule_id')
+                  ->constrained()
+                  ->cascadeOnDelete();
             $table->foreignId('group_id')
                   ->constrained()
                   ->cascadeOnDelete();
 
-            $table->string('type'); // proposal, progress1, etc.
+            // $table->string('type'); // proposal, progress1, etc.
             $table->integer('version')->default(1);
 
             $table->string('file_path')->nullable();
+            $table->string('reviewed_file')->nullable();
             $table->integer('marks')->nullable();
 
             $table->enum('status', ['pending', 'accepted', 'rejected'])
