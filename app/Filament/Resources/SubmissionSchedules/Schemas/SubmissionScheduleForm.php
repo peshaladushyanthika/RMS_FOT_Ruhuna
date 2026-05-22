@@ -21,11 +21,13 @@ class SubmissionScheduleForm
 
             Select::make('type')
                 ->options([
-                    'proposal' => 'Proposal',
-                    'progress_report' => 'Progress Report',
-                    'thesis' => 'Thesis',
-                    'presentation' => 'Presentation',
-                ])
+                        'proposal' => 'Proposal Report', 
+                        'p_Pres' => 'Proposal Presentation', 
+                        'progress1' => 'Progress 01',
+                        'progress2' => 'Progress 02',
+                        'thesis' => 'Thesis',
+                        'viva' => 'Viva Presentation'
+                        ])
                 ->required(),
             FileUpload::make('template_file')
 
@@ -62,7 +64,7 @@ class SubmissionScheduleForm
 
             Select::make('groups')
                 ->multiple()
-                ->relationship('groups', 'id')
+                ->relationship('groups', 'group_name')
                 ->helperText('Leave empty to assign for ALL groups'),
             ]);
     }

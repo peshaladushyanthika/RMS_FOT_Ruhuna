@@ -3,6 +3,7 @@
 namespace App\Filament\Widgets;
 
 use App\Models\Submission;
+use App\Models\SubmissionSchedule;
 use App\Models\Group;
 use Filament\Actions\BulkActionGroup;
 use Filament\Tables\Table;
@@ -18,41 +19,45 @@ class Alerts extends TableWidget
         return $table
             ->query(function (): Builder {
     return Group::query()
-        ->with(['submissions', 'meetings'])
+        ->with(['submissions.schedule', 'meetings'])
         ->where(function ($query) {
             $query
                 // No meetings
                 ->whereDoesntHave('meetings')
 
-                // Proposal rejected
                 ->orWhereHas('submissions', function ($q) {
-                    $q->where('type', 'proposal')
-                      ->where('status', 'rejected');
+                    $q->where('status', 'rejected')
+                    ->whereHas('schedule', function ($q2) {
+                        $q2->where('type', 'proposal');
+                    });
                 })
 
                 // Presentation rejected
                 ->orWhereHas('submissions', function ($q) {
-                    $q->where('type', 'p_Pres')
-                      ->where('status', 'rejected');
+                    $q->where('status', 'rejected')
+                    ->whereHas('schedule', function ($q2) {
+                        $q2->where('type', 'p_Pres');
+                    });
                 })
 
                 // Thesis pending
-                ->orWhereHas('submissions', function ($q) {
-                    $q->where('type', 'thesis')
-                      ->where('status', 'pending');
-                })
+                // ->orWhereHas('submissions', function ($q) {
+                //     $q->where('type', 'thesis')
+                //       ->where('status', 'pending');
+                // })
 
                 // Viva pending
-                ->orWhereHas('submissions', function ($q) {
-                    $q->where('type', 'viva')
-                      ->where('status', 'pending');
-                })
+                // ->orWhereHas('submissions', function ($q) {
+                //     $q->where('type', 'viva')
+                //       ->where('status', 'pending');
+                // })
 
                 // Progress pending
-                ->orWhereHas('submissions', function ($q) {
-                    $q->where('type', 'progress1')
-                      ->where('status', 'pending');
-                });
+                // ->orWhereHas('submissions', function ($q) {
+                //     $q->where('type', 'progress1')
+                //       ->where('status', 'pending');
+                // })
+                ;
         })
         ->limit(10);
 })

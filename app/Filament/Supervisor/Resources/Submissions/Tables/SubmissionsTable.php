@@ -15,17 +15,54 @@ class SubmissionsTable
     {
         return $table
             ->columns([
-                TextColumn::make('group.group_name')
+                TextColumn::make('group.id')
                 ->label('Group'),
+
+                TextColumn::make('Supervisor')
+                ->label('Role')
+                ->getStateUsing(function ($record) {
+                    $supervisor = auth()->user()->supervisor;
+
+                    if($record->group->supervisor_id === $supervisor->id){
+                        return 'Main';
+                    }
+                    if($record->group->co_supervisor_id === $supervisor->id){
+                        return 'Co';
+                    }
+                    return '-';   
+                })
+                ->badge()
+                ->color(fn ($state) => match ($state) {
+                'Main' => 'success',
+                'Co' => 'warning',
+                default => 'gray',
+             }),
 
             TextColumn::make('file_path')
                 ->label('Submitted File')
-                ->formatStateUsing(fn ($state) => basename($state))
+                ->formatStateUsing(function ($state){
+                    
+                $fileName = basename($state);
+                    
+                     return strlen($fileName) > 25
+                    ? substr($fileName, 0, 25) . '...'
+                    : $fileName;
+                
+                })
+                ->tooltip(fn ($state) => basename($state))
                 ->url(fn ($record) => asset('storage/' . $record->file_path))
                 ->openUrlInNewTab(),
+            
+            TextColumn::make('schedule.type')
+                ->label('File Type'),
 
            TextColumn::make('status')
-                ->badge(),
+                ->badge()
+                ->colors([
+                        'success' => 'accepted',
+                        'danger' => 'rejected',
+                        'warning' => 'pending',
+                    ]),
 
             TextColumn::make('marks'),
             ])

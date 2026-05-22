@@ -23,6 +23,7 @@ class SubmissionsForm
 
                 FileUpload::make('reviewed_file')
                     ->label('Reviewed File')
+                    ->disk('public')
                     ->directory('reviews'),
 
                 TextInput::make('marks')

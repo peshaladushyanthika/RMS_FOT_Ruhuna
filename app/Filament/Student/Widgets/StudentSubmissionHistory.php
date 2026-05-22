@@ -39,10 +39,15 @@ class StudentSubmissionHistory extends TableWidget
                             default => 'warning',
                         }
                     ),
-                TextColumn::make('marks'),
 
                 TextColumn::make('feedback')
                     ->limit(30),
+                
+                TextColumn::make('reviewed_file')
+                    ->label('Reviewed File')
+                    ->formatStateUsing(fn ($state) => 'Download')
+                    ->url(fn ($record) => asset('storage/' . $record->reviewed_file))
+                    ->openUrlInNewTab(),
 
                 TextColumn::make('submitted_at')
                     ->dateTime(),

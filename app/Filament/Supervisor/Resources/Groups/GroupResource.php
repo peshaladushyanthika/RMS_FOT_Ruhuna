@@ -4,6 +4,7 @@ namespace App\Filament\Supervisor\Resources\Groups;
 
 use App\Filament\Supervisor\Resources\Groups\Pages\CreateGroup;
 use App\Filament\Supervisor\Resources\Groups\Pages\EditGroup;
+use App\Filament\Supervisor\Resources\Groups\Pages\ViewGroup;
 use App\Filament\Supervisor\Resources\Groups\Pages\ListGroups;
 use App\Filament\Supervisor\Resources\Groups\Schemas\GroupForm;
 use App\Filament\Supervisor\Resources\Groups\Tables\GroupsTable;
@@ -14,17 +15,20 @@ use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\Groups\RelationManagers\StudentsRelationManager;
+use App\Filament\Resources\Groups\RelationManagers\MeetingsRelationManager;
+use App\Filament\Resources\Groups\RelationManagers\SubmissionsRelationManager;
 
 class GroupResource extends Resource
 {
     protected static ?string $model = Group::class;
 
-    public static function getEloquentQuery(): Builder
-    {
-        return parent::getEloquentQuery()
-            ->where('supervisor_id', auth()->id())
-            ->orWhere('co_supervisor_id', auth()->id());
-    }
+    // public static function getEloquentQuery(): Builder
+    // {
+    //     return parent::getEloquentQuery()
+    //         ->where('supervisor_id', auth()->id())
+    //         ->orWhere('co_supervisor_id', auth()->id());
+    // }
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
@@ -43,7 +47,9 @@ class GroupResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            StudentsRelationManager::class,
+            SubmissionsRelationManager::class,
+            MeetingsRelationManager::class,
         ];
     }
 
@@ -52,6 +58,7 @@ class GroupResource extends Resource
         return [
             'index' => ListGroups::route('/'),
             'create' => CreateGroup::route('/create'),
+            'view' => ViewGroup::route('/{record}'),
             'edit' => EditGroup::route('/{record}/edit'),
         ];
     }

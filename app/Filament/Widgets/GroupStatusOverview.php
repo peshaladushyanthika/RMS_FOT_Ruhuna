@@ -18,7 +18,7 @@ protected int | string | array $columnSpan = 'full';
     public function table(Table $table): Table
     {
         return $table
-            ->query(fn (): Builder => Group::query()->with('submissions'))
+            ->query(fn (): Builder => Group::query()->with('submissions.schedule'))
             // ->description('🟢 Approved | 🟡 Submitted/Pending | 🔴 Rejected | ⚪ Not Started')
             ->columns([
                 TextColumn::make('id')->weight('bold')
@@ -184,8 +184,14 @@ protected int | string | array $columnSpan = 'full';
         return IconColumn::make($type)
             ->label($label)
             ->getStateUsing(function ($record) use ($type) {
-                return $record->submissions->where('type', $type)->first()?->status;
-            })
+
+    $submission = $record->submissions
+        ->first(function ($submission) use ($type) {
+            return $submission->schedule?->type === $type;
+        });
+
+    return $submission?->status;
+})
             ->icons([
                 'heroicon-o-check-circle' => 'accepted',
                 'heroicon-o-clock' => 'pending',
