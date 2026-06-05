@@ -12,6 +12,8 @@ use Filament\Tables\Columns\IconColumn;
 
 class GroupStats extends TableWidget
 {
+    protected int | string | array $columnSpan = 'full';
+    protected static ?string $heading = 'Research Groups Overview';
     public function table(Table $table): Table
     {
         $supervisor = auth()->user()?->supervisor;
@@ -21,7 +23,7 @@ class GroupStats extends TableWidget
             ->where('supervisor_id', $supervisorId)->with('submissions.schedule'))
             ->columns([
                 TextColumn::make('id')
-                    ->label('Group')
+                    ->label('Groups')
                     ->weight('bold')
                     ->searchable(),
 

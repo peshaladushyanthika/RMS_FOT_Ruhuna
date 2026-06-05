@@ -8,12 +8,26 @@ use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
+use Illuminate\Database\Eloquent\Builder;
+use App\Models\Group;
 
 class GroupsTable
 {
     public static function configure(Table $table): Table
     {
+        $supervisor = auth()->user()?->supervisor;
+
         return $table
+
+            ->query(
+                Group::query()
+                    ->when($supervisor, function (Builder $query) use ($supervisor) {
+                        $query->where(function ($query) use ($supervisor) {
+                            $query->where('supervisor_id', $supervisor->id)
+                                  ->orWhere('co_supervisor_id', $supervisor->id);
+                        });
+                    })
+            )
             ->columns([
                 TextColumn::make('id')
                 ->label('Group'),
@@ -22,9 +36,9 @@ class GroupsTable
 
             TextColumn::make('role')
                 ->label('Role')
-                ->getStateUsing(function ($record) {
+                ->getStateUsing(function ($record) use ($supervisor) {
 
-                $supervisor = auth()->user()?->supervisor;
+                // $supervisor = auth()->user()?->supervisor;
 
                 if (! $supervisor) {
                     return '-';
