@@ -25,11 +25,16 @@ class StudentSubmissionHistory extends TableWidget
             ->columns([
                 TextColumn::make('schedule.title')
                     ->label('Submission'),
-                TextColumn::make('file_path')
-                    ->label('File')
-                    ->formatStateUsing(fn ($state) => 'Download')
-                    ->url(fn ($record) => asset('storage/' . $record->file_path))
-                    ->openUrlInNewTab(),
+                // TextColumn::make('file_path')
+                //     ->label('File')
+                //     ->formatStateUsing(fn ($state) => 'Download')
+                //     ->url(fn ($record) => asset('storage/' . $record->file_path))
+                //     ->openUrlInNewTab(),
+
+                TextColumn::make('submitted_at')
+                    ->label('Submitted Date')
+                    ->date(),
+
                 TextColumn::make('status')
                     ->badge()
                     ->color(fn ($state) =>
@@ -49,8 +54,7 @@ class StudentSubmissionHistory extends TableWidget
                     ->url(fn ($record) => asset('storage/' . $record->reviewed_file))
                     ->openUrlInNewTab(),
 
-                TextColumn::make('submitted_at')
-                    ->dateTime(),
+                
             ])
             ->filters([
                 //

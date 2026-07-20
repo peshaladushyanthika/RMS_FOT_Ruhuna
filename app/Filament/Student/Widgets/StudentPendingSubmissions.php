@@ -40,39 +40,43 @@ class StudentPendingSubmissions extends TableWidget
             ->columns([
                 TextColumn::make('title')
                     ->label('Submission')
-                    ->url(fn ($record) =>
-                        route('filament.student.pages.submission-details', [
-                            'schedule' => $record->id
-                        ])
-                    )
-                    ->color('primary')
-                    ->weight('bold'),
+                    // ->url(fn ($record) =>
+                    //     route('filament.student.pages.submission-details', [
+                    //         'schedule' => $record->id
+                    //     ])
+                    // )
+                    ->weight('bold')
+                    ->searchable(),
                 TextColumn::make('type')
                     ->badge(),
                 
-                    TextColumn::make('template_file')
+    //                 TextColumn::make('template_file')
 
-    ->label('Template')
+    // ->label('Template')
 
-    ->formatStateUsing(fn ($state) =>
-        $state ? 'Download Template' : 'No Template'
-    )
+    // ->formatStateUsing(fn ($state) =>
+    //     $state ? 'Download Template' : 'No Template'
+    // )
 
-    ->url(fn ($record) =>
-        $record->template_file
-            ? asset('storage/' . $record->template_file)
-            : null
-    )
+    // ->url(fn ($record) =>
+    //     $record->template_file
+    //         ? asset('storage/' . $record->template_file)
+    //         : null
+    // )
 
-    ->openUrlInNewTab(),
-    TextColumn::make('description')
-                    ->label('Instruction'),
+    // ->openUrlInNewTab(),
+    // TextColumn::make('description')
+    //                 ->label('Instruction'),
 
                 TextColumn::make('due_date')
+                    ->label('Deadline')
                     ->dateTime(),
 
                 TextColumn::make('start_date')
                     ->dateTime(),
+
+                // TextColumn::make('upload')
+                // ->label('Upload'),
 
             ])
             ->filters([
@@ -82,8 +86,14 @@ class StudentPendingSubmissions extends TableWidget
                 //
             ])
             ->recordActions([
-                 Action::make('upload')
-                 ->label('Upload')
+                 Action::make('view')
+        ->label('View Details')
+        ->icon('heroicon-m-eye')
+        ->url(fn ($record) =>
+            route('filament.student.pages.submission-details', [
+                'schedule' => $record->id
+            ])
+        ),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

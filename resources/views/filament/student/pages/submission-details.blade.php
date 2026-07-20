@@ -78,15 +78,22 @@
                 Upload Submission
             </x-slot>
 
+            <div class="space-y-4">
+
+        <p class="text-sm text-gray-500">
+            Accepted formats: PDF, DOCX
+        </p>
+
             <form wire:submit="submit" class="space-y-6">
                 {{ $this->form }}
 
                 <div class="mt-6" style="margin-top: 20px;">
-                    <x-filament::button type="submit">
+                    <x-filament::button type="submit" icon="heroicon-m-arrow-up-tray">
                         Submit File
                     </x-filament::button>
                 </div>
             </form>
+</div>
         </x-filament::section>
 </div>
 
