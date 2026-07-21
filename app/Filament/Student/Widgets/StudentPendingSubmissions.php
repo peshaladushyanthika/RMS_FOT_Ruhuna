@@ -14,7 +14,7 @@ use Filament\Forms\Components\FileUpload;
 
 class StudentPendingSubmissions extends TableWidget
 {
-    protected int | string | array $columnSpan = 'full';
+     protected int | string | array $columnSpan = 'full';
     public function table(Table $table): Table
     {
 
