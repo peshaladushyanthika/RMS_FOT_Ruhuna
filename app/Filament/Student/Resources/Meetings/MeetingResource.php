@@ -14,6 +14,7 @@ use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Filament\Infolists\Components\TextEntry;
+use Filament\Schemas\Components\Section;
 
 class MeetingResource extends Resource
 {
@@ -38,24 +39,45 @@ class MeetingResource extends Resource
         return $schema
             ->components([
 
-                TextEntry::make('meeting_date')
-                    ->label('Meeting Date')
-                    ->dateTime(),
+                Section::make('Meeting Details')
+                ->icon('heroicon-o-calendar-days')
+                ->schema([
 
-                // TextEntry::make('supervisor.user.name')
-                //     ->label('Supervisor'),
+                    TextEntry::make('meeting_date')
+                        ->label('Meeting Date')
+                        ->dateTime()
+                        ->size('lg'),
 
-                TextEntry::make('discussion_note')
-                    ->label('Discussion Summary')
-                    ->columnSpanFull(),
+                    TextEntry::make('next_meeting_date')
+                        ->label('Next Meeting')
+                        ->dateTime()
+                        ->size('lg'),
 
-                TextEntry::make('next_actions')
-                    ->label('Next Actions')
-                    ->columnSpanFull(),
+                ])
+                ->columns(2),
 
-                TextEntry::make('next_meeting_date')
-                    ->label('Next Meeting')
-                    ->dateTime(),
+                Section::make('Discussion Summary')
+                ->icon('heroicon-o-document-text')
+                ->schema([
+
+                    TextEntry::make('discussion_note')
+                        ->hiddenLabel()
+                        ->columnSpanFull()
+                        ->size('lg'),
+
+                ]),
+
+
+            Section::make('Next Actions')
+                ->icon('heroicon-o-check-circle')
+                ->schema([
+
+                    TextEntry::make('next_actions')
+                        ->hiddenLabel()
+                        ->columnSpanFull()
+                        ->size('lg'),
+
+                ]),
 
             ]);
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Student\Widgets;
+namespace App\Filament\Student\Resources\Submissions\Widgets;
 
 use Filament\Actions\BulkActionGroup;
 use Filament\Tables\Table;
@@ -10,19 +10,17 @@ use App\Models\SubmissionSchedule;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Actions\Action;
 use Filament\Forms\Components\FileUpload;
-
-
-class StudentPendingSubmissions extends TableWidget
+class PendingSubmissions extends TableWidget
 {
-     protected int | string | array $columnSpan = 'full';
+    protected int | string | array $columnSpan = 'full';
+
     public function table(Table $table): Table
     {
 
-    $groupId = auth()->user()->student->group_id;
-
+     $groupId = auth()->user()->student->group_id;
         return $table
             ->query(fn (): Builder => SubmissionSchedule::query()
-             ->where('is_active', true)
+            ->where('is_active', true)
              ->where(function ($query) use ($groupId) {
 
                         // FOR ALL GROUPS
@@ -35,8 +33,7 @@ class StudentPendingSubmissions extends TableWidget
                     })
             ->whereDoesntHave('submissions', function ($q) use ($groupId) {
             $q->where('group_id', $groupId);
-        })
-                    )
+        }))
             ->columns([
                 TextColumn::make('title')
                     ->label('Submission')
@@ -45,39 +42,15 @@ class StudentPendingSubmissions extends TableWidget
                     //         'schedule' => $record->id
                     //     ])
                     // )
-                    ->weight('bold')
-                    ->searchable(),
+                    ->weight('bold'),
                 TextColumn::make('type')
                     ->badge(),
-                
-    //                 TextColumn::make('template_file')
-
-    // ->label('Template')
-
-    // ->formatStateUsing(fn ($state) =>
-    //     $state ? 'Download Template' : 'No Template'
-    // )
-
-    // ->url(fn ($record) =>
-    //     $record->template_file
-    //         ? asset('storage/' . $record->template_file)
-    //         : null
-    // )
-
-    // ->openUrlInNewTab(),
-    // TextColumn::make('description')
-    //                 ->label('Instruction'),
-
-                TextColumn::make('due_date')
+                 TextColumn::make('due_date')
                     ->label('Deadline')
                     ->dateTime(),
 
                 TextColumn::make('start_date')
                     ->dateTime(),
-
-                // TextColumn::make('upload')
-                // ->label('Upload'),
-
             ])
             ->filters([
                 //
@@ -86,7 +59,7 @@ class StudentPendingSubmissions extends TableWidget
                 //
             ])
             ->recordActions([
-                 Action::make('view')
+                Action::make('view')
                     ->label('View Details')
                     ->icon('heroicon-m-eye')
                     ->url(fn ($record) =>
