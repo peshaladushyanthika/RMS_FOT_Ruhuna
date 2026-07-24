@@ -8,6 +8,8 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use App\Models\Supervisor;
+use Filament\Forms\Components\Hidden;
+use Illuminate\Support\Facades\Auth;
 
 class MeetingsForm
 {
@@ -18,17 +20,10 @@ class MeetingsForm
                 TextInput::make('group_id')
                     ->required()
                     ->numeric(),
-                // Select::make('supervisor_id')
-                //     ->label('Supervisor')
-                //     ->options(
-                //         Supervisor::with('user')
-                //         ->get()
-                //         ->pluck('user.name', 'id')
-                //     )
-                //     // ->relationship('supervisor', 'name')
-                //     ->searchable()
-                //     ->preload()
-                //     ->required(),
+                Hidden::make('supervisor_id')
+                    ->default(function () {
+                        return Supervisor::where('user_id', Auth::id())->value('id');
+                    }),
                 DateTimePicker::make('meeting_date')
                     ->required(),
                 Textarea::make('discussion_note')
