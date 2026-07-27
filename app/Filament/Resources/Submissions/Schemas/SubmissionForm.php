@@ -18,20 +18,20 @@ class SubmissionForm
                 TextInput::make('group_id')
                     ->required()
                     ->numeric(),
-                Select::make('type')
-                    ->options([
-                        'proposal' => 'Proposal Report', 
-                        'p_Pres' => 'Proposal Presentation', 
-                        'progress1' => 'Progress 01',
-                        'progress2' => 'Progress 02',
-                        'thesis' => 'Thesis',
-                        'viva' => 'Viva Presentation'
-                        ])
-                    ->required(),
-                TextInput::make('version')
-                    ->required()
-                    ->numeric()
-                    ->default(1),
+                // Select::make('type')
+                //     ->options([
+                //         'proposal' => 'Proposal Report', 
+                //         'p_Pres' => 'Proposal Presentation', 
+                //         'progress1' => 'Progress 01',
+                //         'progress2' => 'Progress 02',
+                //         'thesis' => 'Thesis',
+                //         'viva' => 'Viva Presentation'
+                //         ])
+                //     ->required(),
+                // TextInput::make('version')
+                //     ->required()
+                //     ->numeric()
+                //     ->default(1),
                 FileUpload::make('file_path')->label('Upload File')
                     ->disk('public')
                     ->directory('submissions')

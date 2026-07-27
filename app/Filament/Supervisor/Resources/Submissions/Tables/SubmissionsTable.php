@@ -62,7 +62,8 @@ class SubmissionsTable
                         'success' => 'accepted',
                         'danger' => 'rejected',
                         'warning' => 'pending',
-                    ]),
+                    ])
+                    ->searchable(),
 
             TextColumn::make('marks'),
             ])

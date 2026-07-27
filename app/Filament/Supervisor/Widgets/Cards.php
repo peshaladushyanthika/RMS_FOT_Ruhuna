@@ -53,7 +53,8 @@ class Cards extends StatsOverviewWidget
             Stat::make('Co-supervised Groups', $coGroups)
                 ->description('Groups as co-supervisor')
                 ->descriptionIcon('heroicon-m-user-group')
-                ->color('info'),
+                ->color('info')
+                ->url(route('filament.supervisor.resources.groups.index')),
 
             Stat::make('Pending Review', $pending)
                 ->description('Waiting')

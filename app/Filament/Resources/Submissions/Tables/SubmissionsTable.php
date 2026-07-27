@@ -7,6 +7,9 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Filament\Actions\Action;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\MarksheetExport;
 
 class SubmissionsTable
 {
@@ -19,9 +22,9 @@ class SubmissionsTable
                     ->sortable(),
                 // TextColumn::make('type')
                 //     ->searchable(),
-                TextColumn::make('version')
-                    ->numeric()
-                    ->sortable(),
+                // TextColumn::make('version')
+                //     ->numeric()
+                //     ->sortable(),
                 TextColumn::make('file_path')
                     ->label('File')
                     ->formatStateUsing(fn ($state) => $state ? 'View PDF' : 'No File')
@@ -55,6 +58,17 @@ class SubmissionsTable
             ])
             ->filters([
                 //
+            ])
+            ->headerActions([
+                Action::make('exportMarksheet')
+                    ->label('Download Marksheet')
+                    ->icon('heroicon-o-arrow-down-tray')
+                    ->action(function () {
+                        return Excel::download(
+                            new MarksheetExport(),
+                            'marksheet.xlsx'
+                        );
+                    }),
             ])
             ->recordActions([
                 EditAction::make(),

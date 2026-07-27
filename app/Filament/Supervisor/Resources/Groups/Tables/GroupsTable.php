@@ -32,7 +32,7 @@ class GroupsTable
                 TextColumn::make('id')
                 ->label('Group'),
 
-            TextColumn::make('research_title')->limit(30),
+            TextColumn::make('research_title'),
 
             TextColumn::make('role')
                 ->label('Role')
