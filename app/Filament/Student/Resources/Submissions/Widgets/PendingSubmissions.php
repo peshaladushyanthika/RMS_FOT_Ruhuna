@@ -18,6 +18,7 @@ class PendingSubmissions extends TableWidget
     {
 
      $groupId = auth()->user()->student->group_id;
+    //  dd($groupId);
         return $table
             ->query(fn (): Builder => SubmissionSchedule::query()
             ->where('is_active', true)

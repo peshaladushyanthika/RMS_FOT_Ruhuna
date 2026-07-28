@@ -7,6 +7,7 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 use App\Models\Submission;
 use Filament\Tables\Columns\TextColumn;
 
@@ -15,7 +16,13 @@ class SubmissionsTable
 {
     public static function configure(Table $table): Table
     {
+        $groupId = auth()->user()->student->group_id;
+
         return $table
+        ->query(fn (): Builder => Submission::query()
+            ->where('group_id', $groupId)
+                    ->with('schedule')
+                    )
         ->heading('Submission History')
             ->columns([
                 TextColumn::make('schedule.title')

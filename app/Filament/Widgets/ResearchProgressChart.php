@@ -11,6 +11,18 @@ class ResearchProgressChart extends ChartWidget
 
     protected function getData(): array
     {
+        $proposal = Submission::whereHas('schedule', function($query){
+            $query->where('type','proposal');
+        })
+        ->where('status','accepted')
+        ->count();
+
+        $p_Pres = Submission::whereHas('schedule', function($query){
+            $query->where('type','p_Pres');
+        })
+        ->where('status','accepted')
+        ->count();
+
         $progress1 = Submission::whereHas('schedule', function($query){
             $query->where('type','progress1');
         })
@@ -23,17 +35,17 @@ class ResearchProgressChart extends ChartWidget
         ->where('status','accepted')
         ->count();
 
+        $thesis = Submission::whereHas('schedule', function($query){
+            $query->where('type','thesis');
+        })
+        ->where('status','accepted')
+        ->count();
+
         $viva = Submission::whereHas('schedule', function($query){
             $query->where('type','viva');
         })
         ->where('status','accepted')
         ->count();
-
-//         dd(
-//     \App\Models\SubmissionSchedule::pluck('type')
-// );
-
-        // $completed = Group::where('progress_stage', 'Completed')->count();
 
         return [
             'datasets' => [
@@ -41,21 +53,24 @@ class ResearchProgressChart extends ChartWidget
                 [
                     'label' => 'Research Groups',
                     'data' => [
+                        $proposal,
+                        $p_Pres,
                         $progress1,
                         $progress2,
+                        $thesis,
                         $viva,
-                        // $completed,
                     ],
                 ],
 
             ],
 
              'labels' => [
-
+                'Proposal',
+                'Proposal_Pres',
                 'Progress 1',
                 'Progress 2',
+                'Thesis',
                 'Viva',
-                // 'Completed',
 
             ],
 
@@ -67,4 +82,19 @@ class ResearchProgressChart extends ChartWidget
     {
         return 'bar';
     }
+
+    protected function getOptions(): array
+{
+    return [
+        'scales' => [
+            'y' => [
+                'beginAtZero' => true,
+                'ticks' => [
+                    'stepSize' => 1,
+                    'precision' => 0,
+                ],
+            ],
+        ],
+    ];
+}
 }

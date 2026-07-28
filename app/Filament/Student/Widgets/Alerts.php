@@ -16,18 +16,13 @@ class Alerts extends Widget
 
         $alerts = [];
 
-
-        /*
-        |--------------------------------------------------------------------------
-        | Meeting Alerts
-        |--------------------------------------------------------------------------
-        */
-
+        // Meeting Alerts
         $meeting = Meeting::where('group_id', $student->group_id)
             ->where('meeting_date', '>=', now())
             ->orderBy('meeting_date')
             ->first();
 
+        $days = ceil(now()->diffInDays($meeting->meeting_date, false));
 
         if ($meeting) {
 
@@ -36,45 +31,50 @@ class Alerts extends Widget
                 'icon' => '📅',
                 'title' => 'Supervisor Meeting',
                 'message' => 
-                    'Your meeting is ' .
-                    now()->diffForHumans($meeting->meeting_date),
+                    'You have only ' . $days . ' day' . ($days > 1 ? 's' : '') . ' until your meeting.',
             ];
 
         }
 
+        // Submission Alerts
 
-
-        /*
-        |--------------------------------------------------------------------------
-        | Submission Alerts
-        |--------------------------------------------------------------------------
-        */
-
-        $submission = SubmissionSchedule::where('is_active', true)
-            ->where('due_date', '>=', now())
+        $submissions = SubmissionSchedule::where('is_active', true)
             ->whereDoesntHave('submissions', function ($query) use ($student) {
 
                 $query->where('group_id', $student->group_id);
 
             })
             ->orderBy('due_date')
-            ->first();
+            ->get();
 
 
+        foreach ($submissions as $submission) {
 
-        if ($submission) {
+            if ($submission->due_date >= now()) {
 
-            $alerts[] = [
-                'type' => 'submission',
-                'icon' => '📄',
-                'title' => $submission->title . ' Submission',
-                'message' =>
-                    'Due ' .
-                    now()->diffForHumans($submission->due_date),
-            ];
+                // Upcoming submission
+                $alerts[] = [
+                    'type' => 'submission',
+                    'icon' => '📄',
+                    'title' => $submission->title . ' Submission',
+                    'message' =>
+                        'Due ' . now()->diffForHumans($submission->due_date),
+                ];
 
-        }
+            } else {
 
+                // Late submission
+                $alerts[] = [
+                    'type' => 'late_submission',
+                    'icon' => '🔴',
+                    'title' => ' Late Submission - '. $submission->title,
+                    'message' =>
+                        'Deadline passed ' . '. Please submit immediately.',
+                ];
+
+            }
+
+}
 
         return $alerts;
     }

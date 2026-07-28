@@ -12,28 +12,19 @@ use Filament\Tables\Columns\TextColumn;
 
 class StudentSubmissionHistory extends TableWidget
 {
-    protected int | string | array $columnSpan = 'full';
+    // protected int | string | array $columnSpan = 'full';
     public function table(Table $table): Table
     {
         $groupId = auth()->user()->student->group_id;
 
         return $table
-            ->query(fn (): Builder => submission::query()
+            ->query(fn (): Builder => Submission::query()
             ->where('group_id', $groupId)
                     ->with('schedule')
                     )
             ->columns([
                 TextColumn::make('schedule.title')
                     ->label('Submission'),
-                // TextColumn::make('file_path')
-                //     ->label('File')
-                //     ->formatStateUsing(fn ($state) => 'Download')
-                //     ->url(fn ($record) => asset('storage/' . $record->file_path))
-                //     ->openUrlInNewTab(),
-
-                TextColumn::make('submitted_at')
-                    ->label('Submitted Date')
-                    ->date(),
 
                 TextColumn::make('status')
                     ->badge()
@@ -44,17 +35,6 @@ class StudentSubmissionHistory extends TableWidget
                             default => 'warning',
                         }
                     ),
-
-                TextColumn::make('feedback')
-                    ->limit(30),
-                
-                TextColumn::make('reviewed_file')
-                    ->label('Reviewed File')
-                    ->formatStateUsing(fn ($state) => 'Download')
-                    ->url(fn ($record) => asset('storage/' . $record->reviewed_file))
-                    ->openUrlInNewTab(),
-
-                
             ])
             ->filters([
                 //
