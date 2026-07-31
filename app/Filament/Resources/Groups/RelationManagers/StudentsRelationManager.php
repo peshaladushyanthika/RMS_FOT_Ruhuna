@@ -20,15 +20,15 @@ class StudentsRelationManager extends RelationManager
 {
     protected static string $relationship = 'students';
 
-    public function form(Schema $schema): Schema
-    {
-        return $schema
-            ->components([
-                TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
-            ]);
-    }
+    // public function form(Schema $schema): Schema
+    // {
+    //     return $schema
+    //         ->components([
+    //             TextInput::make('name')
+    //                 ->required()
+    //                 ->maxLength(255),
+    //         ]);
+    // }
 
     public function table(Table $table): Table
     {
@@ -48,9 +48,9 @@ class StudentsRelationManager extends RelationManager
                 // AssociateAction::make(),
             ])
             ->recordActions([
-                EditAction::make(),
+                // EditAction::make(),
                 // DissociateAction::make(),
-                DeleteAction::make(),
+                // DeleteAction::make(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

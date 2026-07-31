@@ -15,14 +15,14 @@ class GroupsTable
         return $table
             ->columns([
                 TextColumn::make('id')
-                    ->label('Group ID')
-                    ->url(fn ($record) => route('filament.admin.resources.groups.view' , $record))
-                    ->openUrlInNewTab(false),
+                    ->label('Group ID'),
+                    // ->url(fn ($record) => route('filament.admin.resources.groups.view' , $record))
+                    // ->openUrlInNewTab(false),
                 TextColumn::make('group_name')
                     ->searchable()
-                    ->sortable()
-                    ->url(fn ($record) => route('filament.admin.resources.groups.view' , $record))
-                    ->openUrlInNewTab(false),
+                    ->sortable(),
+                    // ->url(fn ($record) => route('filament.admin.resources.groups.view' , $record))
+                    // ->openUrlInNewTab(false),
                 TextColumn::make('research_title'),
                 TextColumn::make('supervisor.user.name')
                     ->label('Main Supervisor'),
