@@ -12,6 +12,7 @@ protected $fillable = [
         'research_title',
         'supervisor_id',
         'co_supervisor_id',
+        'presentation_panel_id',
     ]; 
 
     public function supervisor()
@@ -44,6 +45,13 @@ public function submissionSchedules()
     return $this->belongsToMany(
         SubmissionSchedule::class,
         'submission_schedule_groups'
+    );
+}
+
+public function presentationPanel()
+{
+    return $this->belongsTo(
+        PresentationPanel::class
     );
 }
 }

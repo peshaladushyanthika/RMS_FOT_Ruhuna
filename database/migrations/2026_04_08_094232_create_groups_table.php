@@ -25,6 +25,9 @@ return new class extends Migration
                 ->nullable()
                 ->constrained('supervisors')
                 ->cascadeOnDelete();
+            $table->foreignId('presentation_panel_id')
+            ->nullable()
+            ->nullOnDelete();
             $table->timestamps();
         });
     }

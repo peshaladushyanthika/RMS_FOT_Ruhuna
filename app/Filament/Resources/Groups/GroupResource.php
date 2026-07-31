@@ -22,6 +22,8 @@ class GroupResource extends Resource
 {
     protected static ?string $model = Group::class;
 
+    protected static string|\UnitEnum|null $navigationGroup = 'Research Management';
+
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
     protected static ?string $recordTitleAttribute = 'group';

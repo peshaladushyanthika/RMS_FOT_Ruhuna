@@ -18,6 +18,8 @@ class SubmissionScheduleResource extends Resource
 {
     protected static ?string $model = SubmissionSchedule::class;
 
+    protected static string|\UnitEnum|null $navigationGroup = 'Research Management';
+
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
     protected static ?string $recordTitleAttribute = 'submission schedule';

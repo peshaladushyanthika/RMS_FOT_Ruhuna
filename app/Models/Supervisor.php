@@ -27,4 +27,11 @@ public function coGroups()
 {
     return $this->hasMany(Group::class, 'co_supervisor_id');
 }
+
+public function panels()
+{
+    return $this->belongsToMany(
+        PresentationPanel::class
+    );
+}
 }

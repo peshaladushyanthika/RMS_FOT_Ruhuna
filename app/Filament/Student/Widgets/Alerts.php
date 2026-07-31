@@ -22,10 +22,8 @@ class Alerts extends Widget
             ->orderBy('meeting_date')
             ->first();
 
-        $days = ceil(now()->diffInDays($meeting->meeting_date, false));
-
         if ($meeting) {
-
+            $days = ceil(now()->diffInDays($meeting->meeting_date, false));
             $alerts[] = [
                 'type' => 'meeting',
                 'icon' => '📅',

@@ -18,6 +18,8 @@ class SubmissionResource extends Resource
 {
     protected static ?string $model = Submission::class;
 
+    protected static string|\UnitEnum|null $navigationGroup = 'Research Management';
+
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
     protected static ?string $recordTitleAttribute = 'submission_type';

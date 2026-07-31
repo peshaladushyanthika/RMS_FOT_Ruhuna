@@ -18,6 +18,8 @@ class SupervisorResource extends Resource
 {
     protected static ?string $model = Supervisor::class;
 
+    protected static string|\UnitEnum|null $navigationGroup = 'Research Management';
+
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
     protected static ?string $recordTitleAttribute = 'supervisor';

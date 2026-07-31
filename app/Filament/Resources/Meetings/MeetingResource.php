@@ -18,6 +18,8 @@ class MeetingResource extends Resource
 {
     protected static ?string $model = Meeting::class;
 
+    protected static string|\UnitEnum|null $navigationGroup = 'Research Management';
+
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
     protected static ?string $recordTitleAttribute = 'meeting_topic';
