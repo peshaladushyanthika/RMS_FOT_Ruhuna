@@ -13,7 +13,6 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
-use App\Filament\Pages\AssignSupervisors;
 
 class PresentationPanelResource extends Resource
 {
@@ -47,7 +46,6 @@ class PresentationPanelResource extends Resource
         return [
             'index' => ListPresentationPanels::route('/'),
             'create' => CreatePresentationPanel::route('/create'),
-            'assign-supervisors' => AssignSupervisors::route('/{record}/assign-supervisors'),
             'edit' => EditPresentationPanel::route('/{record}/edit'),
         ];
     }
