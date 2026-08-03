@@ -65,8 +65,7 @@
               </h3>
 
               <p class="text-sm md:text-base opacity-95 leading-relaxed">
-                Manage students, supervisors, groups, evaluation schedules,
-                submissions, reports and final year project records.
+                Manage students, supervisors, groups, submissions and reports
               </p>
             </a>
 
@@ -80,8 +79,7 @@
   </h3>
 
   <p class="text-sm md:text-base opacity-95 leading-relaxed">
-    Monitor assigned student groups, review submissions,
-    provide feedback, and manage research progress effectively.
+    Monitor assigned student groups, review submissions, provide feedback
   </p>
 </a>
 
@@ -96,7 +94,7 @@
 
               <p class="text-sm md:text-base opacity-95 leading-relaxed">
                 Upload documents, receive supervisor feedback,
-                check deadlines and manage research progress.
+                check deadlines
               </p>
             </a>
           </div>

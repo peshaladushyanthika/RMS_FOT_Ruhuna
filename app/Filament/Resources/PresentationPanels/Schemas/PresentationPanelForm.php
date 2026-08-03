@@ -18,16 +18,15 @@ class PresentationPanelForm
                             ->required(),
                 DatePicker::make('presentation_date'),
                 TextInput::make('location'),
-                // Select::make('supervisor_id')
-                //     ->label('Main Supervisor')
-                //     ->options(
-                //         Supervisor::with('user')
-                //         ->get()
-                //         ->pluck('user.name', 'id')
-                //     )
-                //     ->searchable()
-                //     ->preload()
-                //     ->required(),
+                Select::make('supervisors')
+                        ->multiple()
+                        ->relationship('supervisors')
+                        ->getOptionLabelFromRecordUsing(
+                            fn (Supervisor $record) => $record->user->name
+                        )
+                        ->searchable()
+                        ->preload()
+                        ->required(),
             ]);
     }
 }
