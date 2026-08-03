@@ -19,6 +19,7 @@ class PresentationPanelForm
                 DatePicker::make('presentation_date'),
                 TextInput::make('location'),
                 Select::make('supervisors')
+                        ->label('Panel Members')
                         ->multiple()
                         ->relationship('supervisors')
                         ->getOptionLabelFromRecordUsing(
