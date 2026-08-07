@@ -26,4 +26,11 @@ class CreateSupervisor extends CreateRecord
 
         return $data;
     }
+
+    protected function getRedirectUrl(): string
+    {
+        return SupervisorResource::getUrl('index', [
+            'record' => $this->record,
+        ]);
+    }
 }

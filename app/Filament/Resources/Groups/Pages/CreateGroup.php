@@ -8,4 +8,11 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateGroup extends CreateRecord
 {
     protected static string $resource = GroupResource::class;
+
+    protected function getRedirectUrl(): string
+    {
+        return GroupResource::getUrl('index', [
+            'record' => $this->record,
+        ]);
+    }
 }

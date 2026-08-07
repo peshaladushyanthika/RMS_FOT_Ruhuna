@@ -8,4 +8,11 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateSubmissionSchedule extends CreateRecord
 {
     protected static string $resource = SubmissionScheduleResource::class;
+
+    protected function getRedirectUrl(): string
+    {
+        return SubmissionScheduleResource::getUrl('index', [
+            'record' => $this->record,
+        ]);
+    }
 }
