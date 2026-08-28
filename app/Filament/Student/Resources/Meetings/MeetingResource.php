@@ -42,12 +42,10 @@ class MeetingResource extends Resource
                 Section::make('Meeting Details')
                 ->icon('heroicon-o-calendar-days')
                 ->schema([
-
                     TextEntry::make('meeting_date')
                         ->label('Meeting Date')
                         ->dateTime()
                         ->size('lg'),
-
                     TextEntry::make('next_meeting_date')
                         ->label('Next Meeting')
                         ->dateTime()
@@ -55,28 +53,22 @@ class MeetingResource extends Resource
 
                 ])
                 ->columns(2),
-
                 Section::make('Discussion Summary')
                 ->icon('heroicon-o-document-text')
                 ->schema([
-
                     TextEntry::make('discussion_note')
                         ->hiddenLabel()
                         ->columnSpanFull()
                         ->size('lg'),
-
                 ]),
-
 
             Section::make('Next Actions')
                 ->icon('heroicon-o-check-circle')
                 ->schema([
-
                     TextEntry::make('next_actions')
                         ->hiddenLabel()
                         ->columnSpanFull()
                         ->size('lg'),
-
                 ]),
 
             ]);

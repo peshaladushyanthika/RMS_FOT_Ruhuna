@@ -20,11 +20,6 @@ class SubmissionsTable
                 TextColumn::make('group_id')
                     ->numeric()
                     ->sortable(),
-                // TextColumn::make('type')
-                //     ->searchable(),
-                // TextColumn::make('version')
-                //     ->numeric()
-                //     ->sortable(),
                 TextColumn::make('file_path')
                     ->label('File')
                     ->formatStateUsing(fn ($state) => $state ? 'View PDF' : 'No File')

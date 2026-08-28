@@ -19,7 +19,6 @@ class SubmissionDetails extends Page implements HasForms
 {
     use InteractsWithForms;
 
-    // protected static ?string $navigationIcon = 'heroicon-o-document';
     protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-document';
 
     protected string $view = 'filament.student.pages.submission-details';

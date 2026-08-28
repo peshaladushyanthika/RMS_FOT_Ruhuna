@@ -48,10 +48,16 @@ public function submissionSchedules()
     );
 }
 
-public function presentationPanel()
+public function presentationPanels()
 {
-    return $this->belongsTo(
-        PresentationPanel::class
-    );
+    return $this->belongsToMany(
+        PresentationPanel::class,
+        'presentation_panel_group'
+    )
+    ->withPivot([
+        'start_time',
+        'end_time',
+    ])
+    ->withTimestamps();
 }
 }

@@ -19,9 +19,6 @@ class MeetingsTable
                     ->label('Meeting Date')
                     ->dateTime()
                     ->sortable(),
-                // TextColumn::make('supervisor.user.name')
-                //     ->label('Supervisor')
-                //     ->searchable(),
                 TextColumn::make('discussion_note')
                     ->label('Discussion Summary')
                     ->limit(50)

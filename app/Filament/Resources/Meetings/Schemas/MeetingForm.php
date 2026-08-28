@@ -25,7 +25,6 @@ class MeetingForm
                         ->get()
                         ->pluck('user.name', 'id')
                     )
-                    // ->relationship('supervisor', 'name')
                     ->searchable()
                     ->preload()
                     ->required(),

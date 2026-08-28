@@ -45,11 +45,6 @@ class SubmissionScheduleForm
                     ])
 
                     ->helperText('Upload PDF or DOCX template'),
-// Textarea::make('instructions')
-
-//     ->rows(5)
-
-//     ->helperText('Instructions for students'),
 
             Textarea::make('description'),
 
