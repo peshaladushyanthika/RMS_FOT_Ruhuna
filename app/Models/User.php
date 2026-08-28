@@ -31,23 +31,23 @@ class User extends Authenticatable
     }
 
     public function student()
-{
+    {
     return $this->hasOne(Student::class);
-}
+    }
 
-public function supervisor()
-{
-    return $this->hasOne(Supervisor::class);
-}
+    public function supervisor()
+    {
+        return $this->hasOne(Supervisor::class);
+    }
 
-public function canAccessPanel(\Filament\Panel $panel): bool
-{
-    dd($panel->getId(), $this->role);
-    return match ($panel->getId()) {
-        'admin' => $this->role === 'admin',
-        'supervisor' => $this->role === 'supervisor',
-        'student' => $this->role === 'student',
-        default => false,
-    };
-}
+    public function canAccessPanel(\Filament\Panel $panel): bool
+    {
+        dd($panel->getId(), $this->role);
+        return match ($panel->getId()) {
+            'admin' => $this->role === 'admin',
+            'supervisor' => $this->role === 'supervisor',
+            'student' => $this->role === 'student',
+            default => false,
+        };
+    }
 }

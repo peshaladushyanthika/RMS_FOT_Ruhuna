@@ -7,57 +7,57 @@ use Illuminate\Database\Eloquent\Model;
 class Group extends Model
 {
 
-protected $fillable = [
-        'group_name', 
-        'research_title',
-        'supervisor_id',
-        'co_supervisor_id',
-        'presentation_panel_id',
+    protected $fillable = [
+            'group_name', 
+            'research_title',
+            'supervisor_id',
+            'co_supervisor_id',
+            'presentation_panel_id',
     ]; 
 
     public function supervisor()
-{
-    return $this->belongsTo(Supervisor::class, 'supervisor_id');
-}
+    {
+        return $this->belongsTo(Supervisor::class, 'supervisor_id');
+    }
 
-public function coSupervisor()
-{
-    return $this->belongsTo(Supervisor::class, 'co_supervisor_id');
-}
+    public function coSupervisor()
+    {
+        return $this->belongsTo(Supervisor::class, 'co_supervisor_id');
+    }
 
-public function students()
-{
-    return $this->hasMany(Student::class);
-}
+    public function students()
+    {
+        return $this->hasMany(Student::class);
+    }
 
-public function submissions()
-{
-    return $this->hasMany(Submission::class);
-}
+    public function submissions()
+    {
+        return $this->hasMany(Submission::class);
+    }
 
-public function meetings()
-{
-    return $this->hasMany(Meeting::class);
-}
+    public function meetings()
+    {
+        return $this->hasMany(Meeting::class);
+    }
 
-public function submissionSchedules()
-{
-    return $this->belongsToMany(
-        SubmissionSchedule::class,
-        'submission_schedule_groups'
-    );
-}
+    public function submissionSchedules()
+    {
+        return $this->belongsToMany(
+            SubmissionSchedule::class,
+            'submission_schedule_groups'
+        );
+    }
 
-public function presentationPanels()
-{
-    return $this->belongsToMany(
-        PresentationPanel::class,
-        'presentation_panel_group'
-    )
-    ->withPivot([
-        'start_time',
-        'end_time',
-    ])
-    ->withTimestamps();
-}
+    public function presentationPanels()
+    {
+        return $this->belongsToMany(
+            PresentationPanel::class,
+            'presentation_panel_group'
+        )
+        ->withPivot([
+            'start_time',
+            'end_time',
+        ])
+        ->withTimestamps();
+    }
 }

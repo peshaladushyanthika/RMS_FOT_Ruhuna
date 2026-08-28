@@ -20,7 +20,6 @@ return new class extends Migration
                   ->constrained()
                   ->cascadeOnDelete();
 
-            // $table->string('type'); // proposal, progress1, etc.
             $table->integer('version')->default(1);
 
             $table->string('file_path')->nullable();

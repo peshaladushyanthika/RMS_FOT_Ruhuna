@@ -11,15 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('presentation_panels', function (Blueprint $table) {
+        Schema::create('presentation_panel_group', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('presentation_type');
-
-            $table->date('presentation_date')
+            $table->foreignId('presentation_panel_id')
+            ->constrained()
+            ->cascadeOnDelete();
+            $table->foreignId('group_id')
+            ->constrained()
+            ->cascadeOnDelete();
+            $table->time('start_time')
                 ->nullable();
-
-            $table->string('location')
+            $table->time('end_time')
                 ->nullable();
             $table->timestamps();
         });
@@ -30,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('presentation_panels');
+        Schema::dropIfExists('presentation_panel_group');
     }
 };
